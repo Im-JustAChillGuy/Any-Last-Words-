@@ -4,7 +4,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 
 public class AnyLastWordsClient implements ClientModInitializer {
     private boolean wasDead = false;
@@ -35,13 +36,13 @@ public class AnyLastWordsClient implements ClientModInitializer {
         });
     }
 
-    private String getDimensionName(Minecraft client) {
-        ResourceLocation dimension = client.player.level().dimension().location();
-        return switch (dimension.toString()) {
-            case "minecraft:overworld" -> "Overworld";
-            case "minecraft:the_nether" -> "The Nether";
-            case "minecraft:the_end" -> "The End";
-            default -> dimension.getPath(); // handles modded dimensions
-        };
-    }
+  private String getDimensionName(Minecraft client) {
+    ResourceKey<Level> dimension = client.player.level().dimension();
+    return switch (dimension.location().toString()) {
+        case "minecraft:overworld" -> "Overworld";
+        case "minecraft:the_nether" -> "The Nether";
+        case "minecraft:the_end" -> "The End";
+        default -> dimension.location().getPath();
+    };
+}
 }
