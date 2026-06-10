@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 public class AnyLastWordsClient implements ClientModInitializer {
     private boolean wasDead = false;
@@ -20,8 +21,10 @@ public class AnyLastWordsClient implements ClientModInitializer {
                 int y = (int) client.player.getY();
                 int z = (int) client.player.getZ();
 
+                String dimension = getDimensionName(client);
+
                 client.player.sendSystemMessage(
-                    Component.literal("§4☠ §cYou died at X: " + x + ", Y: " + y + ", Z: " + z)
+                    Component.literal("§4☠ §cYou died at X: " + x + ", Y: " + y + ", Z: " + z + " §7[" + dimension + "]")
                 );
                 wasDead = true;
             }
@@ -30,5 +33,15 @@ public class AnyLastWordsClient implements ClientModInitializer {
                 wasDead = false;
             }
         });
+    }
+
+    private String getDimensionName(Minecraft client) {
+        ResourceLocation dimension = client.player.level().dimension().location();
+        return switch (dimension.toString()) {
+            case "minecraft:overworld" -> "Overworld";
+            case "minecraft:the_nether" -> "The Nether";
+            case "minecraft:the_end" -> "The End";
+            default -> dimension.getPath(); // handles modded dimensions
+        };
     }
 }
