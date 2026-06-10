@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "Any-Last-Words",
+	"id": "any-last-words",
 	"version": "1.0.0",
 	"name": "Sends a message in chat with the coordinates of your last death......",
 	"authors": [
