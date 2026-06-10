@@ -2,7 +2,8 @@
 	"schemaVersion": 1,
 	"id": "any-last-words",
 	"version": "1.0.0",
-	"name": "Sends a message in chat with the coordinates of your last death......",
+	"name": "Any Last Words?",
+	"description": "Sends a message in chat with the coordinates of your last death......",
 	"authors": [
 		"JustAChillGuy"
 	],
