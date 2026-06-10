@@ -14,13 +14,16 @@
 	"icon": "assets/modid/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"com.example.AnyLastWords"
-		],
-		"client": [
-			"com.example.client.AnyLastWordsClient"
-		]
-	},
+    "main": [
+        "com.example.AnyLastWords"
+    ],
+    "client": [
+        "com.example.client.AnyLastWordsClient"
+    ],
+    "modmenu": [
+        "com.example.client.ModMenuIntegration"
+    ]
+},
 	"mixins": [
 		"modid.mixins.json",
 		{
