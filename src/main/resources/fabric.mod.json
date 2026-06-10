@@ -1,11 +1,10 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
-	"version": "${version}",
-	"name": "Example Mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"id": "Any-Last-Words",
+	"version": "1.0.0",
+	"name": "Sends a message in chat with the coordinates of your last death......",
 	"authors": [
-		"Me!"
+		"JustAChillGuy"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -16,10 +15,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"com.example.AnyLastWords"
 		],
 		"client": [
-			"com.example.client.ExampleModClient"
+			"com.example.client.AnyLastWordsClient"
 		]
 	},
 	"mixins": [
@@ -31,7 +30,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
-		"minecraft": "~26.1.2",
+		"minecraft": ">=26.1",
 		"java": ">=25",
 		"fabric-api": "*"
 	}
