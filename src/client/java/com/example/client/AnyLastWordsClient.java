@@ -12,37 +12,47 @@ public class AnyLastWordsClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        ModConfig.load();
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.player == null) return;
+            if (!ModConfig.get().enabled) return;
 
             boolean isDead = client.player.getHealth() <= 0;
 
             if (isDead && !wasDead) {
-                int x = (int) client.player.getX();
-                int y = (int) client.player.getY();
-                int z = (int) client.player.getZ();
+                ModConfig config = ModConfig.get();
 
-                String dimension = getDimensionName(client);
+                String coords;
+                if (config.preciseCoords) {
+                    coords = "X: " + String.format("%.2f", client.player.getX()) +
+                             ", Y: " + String.format("%.2f", client.player.getY()) +
+                             ", Z: " + String.format("%.2f", client.player.getZ());
+                } else {
+                    coords = "X: " + (int) client.player.getX() +
+                             ", Y: " + (int) client.player.getY() +
+                             ", Z: " + (int) client.player.getZ();
+                }
 
-                client.player.sendSystemMessage(
-                    Component.literal("§4☠ §cYou died at X: " + x + ", Y: " + y + ", Z: " + z + " §7[" + dimension + "]")
-                );
+                String message = "§4☠ §cYou died at " + coords;
+
+                if (config.showDimension) {
+                    message += " §7[" + getDimensionName(client) + "]";
+                }
+
+                client.player.sendSystemMessage(Component.literal(message));
                 wasDead = true;
             }
 
-            if (!isDead) {
-                wasDead = false;
-            }
+            if (!isDead) wasDead = false;
         });
     }
 
-  private String getDimensionName(Minecraft client) {
-    ResourceKey<Level> dimension = client.player.level().dimension();
-    return switch (dimension.location().toString()) {
-        case "minecraft:overworld" -> "Overworld";
-        case "minecraft:the_nether" -> "The Nether";
-        case "minecraft:the_end" -> "The End";
-        default -> dimension.location().getPath();
-    };
-}
+    private String getDimensionName(Minecraft client) {
+        ResourceKey<Level> dimension = client.player.level().dimension();
+        if (dimension == Level.OVERWORLD) return "Overworld";
+        if (dimension == Level.NETHER) return "The Nether";
+        if (dimension == Level.END) return "The End";
+        return "Unknown";
+    }
 }
