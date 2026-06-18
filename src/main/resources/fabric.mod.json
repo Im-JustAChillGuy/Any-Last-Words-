@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "any-last-words",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"name": "Any Last Words?",
 	"description": "Sends a message in chat with the coordinates of your last death......",
 	"authors": [
@@ -33,8 +33,8 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.19.3",
-		"minecraft": ">=26.1",
+		"fabricloader": ">=0.19.2",
+		"minecraft": ">=26.2",
 		"java": ">=25",
 		"fabric-api": "*"
 	}
